@@ -13,10 +13,10 @@ print("Part 1:", score)
 
 score = 0
 score_calc = [
-    lambda h: ((h + 2) % 3), # lose
-    lambda h: h + 3, # draw
-    lambda h: ((h + 1) % 3) + 6, # win
+    lambda h: (h + 2) % 3 + 1, # lose
+    lambda h: 3 + h + 1, # draw
+    lambda h: 6 + (h + 1) % 3 + 1, # win
 ]
 for opponent_hand, result in games:
-    score += score_calc[result](opponent_hand) + 1
+    score += score_calc[result](opponent_hand)
 print("Part 2:", score)
