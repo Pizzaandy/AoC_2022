@@ -1,4 +1,4 @@
-sacks = open("inputs/day03.txt").read().split("\n")
+sacks = open("inputs/day03.txt").read().splitlines()
 
 def priority(char: str):
     return (ord(char) - 96) % 58

@@ -1,5 +1,5 @@
 # 0 - rock, 1 - paper, 2 - scissors
-input = open("inputs/day02.txt").read().split("\n")
+input = open("inputs/day02.txt").read().splitlines()
 hands = [("ABC".index(line[0]), "XYZ".index(line[2])) for line in input]
 
 def score(h1, h2):
