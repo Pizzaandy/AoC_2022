@@ -5,8 +5,7 @@ data, ops = open("inputs/day05.txt").read().split("\n\n")
 
 data = data.splitlines()[:-1]
 rows = [[*line[1::4].ljust(9, " ")] for line in data]
-columns = zip(*rows[::-1])
-stacks = [[c for c in column if c != " "] for column in columns]
+stacks = [[c for c in column if c != " "] for column in zip(*rows[::-1])]
 
 ops = [re.findall(r"\d+", line) for line in ops.splitlines()]
 ops = [list(map(int, op)) for op in ops]
