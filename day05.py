@@ -5,12 +5,12 @@ data, ops = open("inputs/day05.txt").read().split("\n\n")
 
 data = data.splitlines()[:-1]
 rows = [[*line[1::4].ljust(9, " ")] for line in data]
-stacks = list(map(list, zip(*reversed(rows))))
-stacks = [[c for c in stack if c != " "] for stack in stacks]
+columns = zip(*rows[::-1])
+stacks = [[c for c in column if c != " "] for column in columns]
 
 ops = [re.findall(r"\d+", line) for line in ops.splitlines()]
 ops = [list(map(int, op)) for op in ops]
-ops = [[count, src-1, dest-1] for count, src, dest in ops]
+ops = [[count, source-1, dest-1] for count, source, dest in ops]
 
 part1 = deepcopy(stacks)
 part2 = deepcopy(stacks)
