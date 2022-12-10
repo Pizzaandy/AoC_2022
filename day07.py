@@ -1,7 +1,7 @@
 import re
 
 data = open("inputs/day07.txt").read()
-dir_lists = re.split(r"\$ cd ([\w./]+)\n", data)[1:]
+dir_lists = re.split(r"\$ cd (\S+)\n", data)[1:]
 
 sizes = {}
 path = []
@@ -10,9 +10,8 @@ for cd, items in zip(*[iter(dir_lists)]*2):
     if cd == "..":
         path.pop()
         continue
-    else:
-        path.append(cd)
 
+    path.append(cd)
     file_sizes = sum(int(num) for num in re.findall(r'\d+', items))
 
     for i in range(len(path)):
