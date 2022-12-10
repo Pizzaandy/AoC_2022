@@ -1,36 +1,28 @@
 ops = open("inputs/day10.txt").read().splitlines()
 
 X = 1
-
 cycle_count = 0
-signal_strengths = [0]
-op_queue = [[], []]
+signal_strengths = []
+pixels = ["." for _ in range(240)]
 
-def execute_op(op):
+for op in ops:
     if op == "noop":
-        return
-    cmd, val = op.split()
-    print(f"executed {op}")
+        cycle_count += 1
+        if cycle_count in [20 + n * 40 for n in range(6)]:
+            signal_strengths.append((X, cycle_count))
+        if abs(X - ((cycle_count-1) % 40)) <= 1:
+            pixels[cycle_count - 1] = "#"
+        continue
+    cmd, value = op.split()
     if cmd == "addx":
-        global X
-        X += int(val)
+        for i in range(2):
+            cycle_count += 1
+            if cycle_count in [20 + n*40 for n in range(6)]:
+                signal_strengths.append(X * cycle_count)
+            if abs(X - ((cycle_count-1) % 40)) <= 1:
+                pixels[cycle_count - 1] = "#"
+            if i == 1:
+                X += int(value)
 
-def queue_op(op):
-    if len(op_queue) == 1:
-        op_queue.append([])
-    if op == "noop":
-        return
-    op_queue[1].append(op)
-    print(f"queued {op}")
-
-while op_queue:
-    cycle_count += 1
-    print(f"cycle {cycle_count} begin")
-    if ops:
-        queue_op(ops.pop(0))
-    signal_strengths.append((X, cycle_count))
-    for op in op_queue.pop(0):
-        execute_op(op)
-    print(f"cycle {cycle_count} end\n")
-
-print(signal_strengths[20])
+for line in zip(*[iter(pixels)]*40):
+    print("".join(line))
