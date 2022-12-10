@@ -8,7 +8,7 @@ H = 0 + 0j
 T = 0 + 0j
 visited_pt1 = set()
 
-knots = [0 + 0j] * 9
+knots = 9 * [0j]
 visited_pt2 = set()
 
 def update_knot(current, next):
