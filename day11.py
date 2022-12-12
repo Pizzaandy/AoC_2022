@@ -28,19 +28,14 @@ class Monkey:
             else:
                 Monkey.monkeys[self.false_monkey].items.append(item)
 
-monkeys = [Monkey(s) for s in data]
+def monkey_business(data, n, reduce_worry):
+    Monkey.monkeys.clear()
+    monkeys = [Monkey(s) for s in data]
+    for _ in range(n):
+        for monkey in monkeys:
+            monkey.execute_turn(reduce_worry)
+    monkeys.sort(key=lambda x: x.inspections, reverse=True)
+    return monkeys[0].inspections * monkeys[1].inspections
 
-for _ in range(20):
-    for monkey in monkeys:
-        monkey.execute_turn(reduce_worry=True)
-monkeys.sort(key=lambda x: x.inspections, reverse=True)
-print("Part 1:", monkeys[0].inspections * monkeys[1].inspections)
-
-Monkey.monkeys.clear()
-monkeys = [Monkey(s) for s in data]
-
-for i in range(0, 10_000):
-    for monkey in monkeys:
-        monkey.execute_turn(reduce_worry=False)
-monkeys.sort(key=lambda x: x.inspections, reverse=True)
-print("Part 2:", monkeys[0].inspections * monkeys[1].inspections)
+print("Part 1:", monkey_business(data, 20, reduce_worry=True))
+print("Part 2:", monkey_business(data, 10_000, reduce_worry=False))
